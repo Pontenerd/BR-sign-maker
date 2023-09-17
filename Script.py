@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-import os
-
+import cairosvg
 
 input1=input("What do you want line 1 to say?")
 input2=input("What do you want line 2 to say?")
 input3=input("What do you want line 3 to say?")
-filename=input("What do you want the file to be called?")
 
 svg_contents= """<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg version="2" viewBox="0 0 4000 2370" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xml:space="preserve">
@@ -36,8 +34,5 @@ svg_contents= """<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <text x="0" y="6.5ex"><tspan>    (input2)</tspan></text>
 <text x="0" y="8.5ex"><tspan>    (input3)</tspan></text>
 </svg>""".replace("(input1)", input1).replace("(input2)",input2).replace("(input3)",input3) 
-fo=open("Script.svg","w")
-fo.write(svg_contents)
-fo.close()
-os.system (f"inkscape -w 512 -o {filename}.png Script.svg")
-os.remove("Script.svg")
+cairosvg.svg2png(output_width=(512),
+    bytestring=(svg_contents), write_to="output.png",)
